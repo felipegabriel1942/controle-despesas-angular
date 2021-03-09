@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TransactionFilterComponent } from './transaction-filter.component';
+import { CardSummaryComponent } from './card-summary.component';
 
-describe('TransactionFilterComponent', () => {
-  let component: TransactionFilterComponent;
-  let fixture: ComponentFixture<TransactionFilterComponent>;
+describe('CardSummaryComponent', () => {
+  let component: CardSummaryComponent;
+  let fixture: ComponentFixture<CardSummaryComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TransactionFilterComponent ]
+      declarations: [ CardSummaryComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TransactionFilterComponent);
+    fixture = TestBed.createComponent(CardSummaryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
