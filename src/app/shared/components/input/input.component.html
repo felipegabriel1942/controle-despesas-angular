@@ -1,34 +1,28 @@
 <div class="form-group">
-  <label for="description" *ngIf="label != null">{{ label }}</label>
+  <label for="description">{{ label }}</label>
   <input
     class="form-control"
-    type="text"
-    [disabled]="disabled"
-    [value]="value"
-    (blur)="onTouched()"
-    (input)="onChange($event.target.value)"
-
+    [type]="type"
+    [formControl]="control"
+    [ngClass]="{ 'is-invalid': control.errors != null && control.touched }"
   />
-  <!-- <div
-    *ngIf="form.get('description')?.errors?.required"
-    class="invalid-feedback"
-  >
+
+  <div *ngIf="control?.errors?.required" class="invalid-feedback">
     Campo obrigatório
   </div>
-  <div
-    *ngIf="form.get('description')?.errors?.minlength"
-    class="invalid-feedback"
-  >
+  <div *ngIf="control?.errors?.minlength" class="invalid-feedback">
     Campo deve ter no minimo
-    {{ form.get("description")?.errors?.minlength?.requiredLength }}
+    {{ control.errors?.minlength?.requiredLength }}
     caracteres.
   </div>
-  <div
-    *ngIf="form.get('description')?.errors?.maxlength"
-    class="invalid-feedback"
-  >
+  <div *ngIf="control?.errors?.maxlength" class="invalid-feedback">
     Campo deve ter no maximo
-    {{ form.get("description")?.errors?.maxlength?.requiredLength }}
+    {{ control.errors?.maxlength?.requiredLength }}
     caracteres.
-  </div> -->
+  </div>
+  <div *ngIf="control?.errors?.min" class="invalid-feedback">
+    Valor do campo não pode ser a
+    {{ control.errors?.min?.min }}
+    .
+  </div>
 </div>

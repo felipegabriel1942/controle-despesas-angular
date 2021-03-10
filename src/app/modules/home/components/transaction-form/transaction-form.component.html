@@ -1,12 +1,24 @@
 <form [formGroup]="form">
-  <app-input formControlName="description" label="Descrição"></app-input>
-  <div class="form-group">
-    <label for="value">Valor</label>
-    <input
-      class="form-control"
-      formControlName="value"
-      id="value"
-      type="number"
-    />
+  <app-input
+    [control]="form.get('description')"
+    label="Descrição"
+    type="text"
+  ></app-input>
+
+  <div class="row">
+    <div class="col-md-6">
+      <app-input
+        [control]="form.get('value')"
+        label="Valor"
+        type="number"
+      ></app-input>
+    </div>
+    <div class="col-md-6">
+      <app-input
+        [control]="form.get('date')"
+        label="Data"
+        type="date"
+      ></app-input>
+    </div>
   </div>
 </form>

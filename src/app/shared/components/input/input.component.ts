@@ -1,41 +1,21 @@
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-input',
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.css'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => InputComponent),
-      multi: true,
-    },
-  ],
 })
-export class InputComponent implements ControlValueAccessor {
-  @Input() label;
-
-  value: string;
-  disabled: boolean;
-  onChange: () => void;
-  onTouched: () => void;
+export class InputComponent implements OnInit {
+  @Input() control: FormControl;
+  @Input() label: string;
+  @Input() type = 'text';
 
   constructor() {}
 
-  writeValue(value: string): void {
-    this.value = value ? value : '';
-  }
-
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
-  }
-
-  setDisabledState?(isDisabled: boolean): void {
-    this.disabled = isDisabled;
+  ngOnInit(): void {
+    if (this.control == null) {
+      throw new Error('Please inform an control to the <app-input> component.');
+    }
   }
 }
