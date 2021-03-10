@@ -1,1 +1,11 @@
+<button type="button" class="btn btn-success" (click)="openAddTransactionModal()">
+  Adicionar
+</button>
 
+<app-modal modalId="addTransactionModal">
+  <div title>Adicione uma trnasação</div>
+  <div body>Corpo</div>
+  <div footer>
+    <button class="btn btn-danger">Fechar</button>
+  </div>
+</app-modal>

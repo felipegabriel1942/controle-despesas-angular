@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, Input, OnInit } from '@angular/core';
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
@@ -7,9 +6,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModalComponent implements OnInit {
 
+  @Input() modalId;
+
   constructor() { }
 
   ngOnInit(): void {
+    if(this.modalId == null) {
+      throw new Error('Please inform an "modalId" to the <app-modal> component.');
+    }
   }
 
 }
