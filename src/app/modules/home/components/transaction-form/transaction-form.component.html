@@ -1,0 +1,12 @@
+<form [formGroup]="form">
+  <app-input formControlName="description" label="Descrição"></app-input>
+  <div class="form-group">
+    <label for="value">Valor</label>
+    <input
+      class="form-control"
+      formControlName="value"
+      id="value"
+      type="number"
+    />
+  </div>
+</form>

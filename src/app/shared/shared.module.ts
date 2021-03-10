@@ -5,6 +5,7 @@ import { ModalComponent } from './components/modal/modal.component';
 import { SelectComponent } from './components/select/select.component';
 import { TableComponent } from './components/table/table.component';
 import { SwitchComponent } from './components/switch/switch.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,7 @@ import { SwitchComponent } from './components/switch/switch.component';
     TableComponent,
     SwitchComponent,
   ],
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule],
   exports: [
     InputComponent,
     ModalComponent,

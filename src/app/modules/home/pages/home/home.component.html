@@ -1,11 +1,24 @@
-<button type="button" class="btn btn-success" (click)="openAddTransactionModal()">
+<button
+  type="button"
+  class="btn btn-success"
+  (click)="openAddTransactionModal()"
+>
   Adicionar
 </button>
 
 <app-modal modalId="addTransactionModal">
-  <div title>Adicione uma trnasação</div>
-  <div body>Corpo</div>
+  <div title>Adicione uma transação</div>
+  <div body>
+    <app-transaction-form [form]="transactionForm"></app-transaction-form>
+    values: {{ transactionForm.value | json }} <br />
+    descriptionError: {{ transactionForm.get("description").errors | json }}
+  </div>
   <div footer>
-    <button class="btn btn-danger">Fechar</button>
+    <button class="btn btn-danger mx-2" (click)="closeAddTransactionModal()">
+      Fechar
+    </button>
+    <button class="btn btn-primary mx-2" (click)="addTransaction()">
+      Adicionar
+    </button>
   </div>
 </app-modal>

@@ -1,2 +1,3 @@
-export class Transaction {
+export interface Transaction {
+
 }

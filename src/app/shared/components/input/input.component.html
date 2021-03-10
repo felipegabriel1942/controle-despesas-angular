@@ -1,1 +1,34 @@
-<p>input works!</p>
+<div class="form-group">
+  <label for="description" *ngIf="label != null">{{ label }}</label>
+  <input
+    class="form-control"
+    type="text"
+    [disabled]="disabled"
+    [value]="value"
+    (blur)="onTouched()"
+    (input)="onChange($event.target.value)"
+
+  />
+  <!-- <div
+    *ngIf="form.get('description')?.errors?.required"
+    class="invalid-feedback"
+  >
+    Campo obrigatório
+  </div>
+  <div
+    *ngIf="form.get('description')?.errors?.minlength"
+    class="invalid-feedback"
+  >
+    Campo deve ter no minimo
+    {{ form.get("description")?.errors?.minlength?.requiredLength }}
+    caracteres.
+  </div>
+  <div
+    *ngIf="form.get('description')?.errors?.maxlength"
+    class="invalid-feedback"
+  >
+    Campo deve ter no maximo
+    {{ form.get("description")?.errors?.maxlength?.requiredLength }}
+    caracteres.
+  </div> -->
+</div>
