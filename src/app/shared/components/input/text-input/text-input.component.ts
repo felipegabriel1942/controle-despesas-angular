@@ -9,12 +9,19 @@ import { FormControl } from '@angular/forms';
 export class TextInputComponent implements OnInit {
   @Input() control: FormControl;
   @Input() label: string;
+  @Input() fieldId: string;
 
   constructor() {}
 
   ngOnInit(): void {
     if (this.control == null) {
-      throw new Error('Please inform an control to the TextInputComponent component.');
+      throw new Error('Please inform an control.');
+    }
+
+    if (this.fieldId == null) {
+      throw new Error(
+        'Please inform an fieldId.'
+      );
     }
   }
 }

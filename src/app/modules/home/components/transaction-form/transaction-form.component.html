@@ -1,6 +1,7 @@
 <form [formGroup]="form">
   <app-text-input
     [control]="form.get('description')"
+    fieldId="transaction-description-input"
     label="Descrição"
   ></app-text-input>
 
@@ -9,13 +10,29 @@
       <app-monetary-input
         [control]="form.get('value')"
         label="Valor"
+        fieldId="transaction-value-input"
       ></app-monetary-input>
     </div>
     <div class="col-md-6">
       <app-date-input
         [control]="form.get('date')"
         label="Data"
+        fieldId="transaction-date-input"
       ></app-date-input>
     </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <app-select
+        fieldId="transaction-type-select"
+        optionLabel="description"
+        optionValue="pkTransaction"
+        label="Tipo"
+        [options]="typeFieldOptions"
+        [control]="form.get('type')"
+      ></app-select>
+    </div>
+    <div class="col-md-6"></div>
   </div>
 </form>

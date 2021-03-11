@@ -1,1 +1,12 @@
-<p>select works!</p>
+<div class="form-group">
+  <label>{{ label }}</label>
+  <select
+    class="form-control"
+    [formControl]="control"
+    [id]="fieldId"
+  >
+    <option [value]="option[optionValue]" *ngFor="let option of options">
+      {{ option[optionLabel] }}
+    </option>
+  </select>
+</div>

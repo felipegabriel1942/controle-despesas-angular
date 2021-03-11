@@ -3,6 +3,7 @@ import { DatePipe } from '@angular/common';
 
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalService } from 'src/app/shared/components/modal/modal.service';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -18,7 +19,7 @@ export class HomeComponent implements OnInit {
       Validators.maxLength(100),
     ]),
     value: new FormControl(null, [Validators.required, Validators.min(0)]),
-    type: new FormControl('', Validators.required),
+    type: new FormControl(1, Validators.required),
     date: new FormControl(this.datepipe.transform(new Date(), 'yyyy-MM-dd'), [
       Validators.required,
     ]),
@@ -30,18 +31,18 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {}
 
   openAddTransactionModal() {
-    this.modalService.openModal(this.addTransactionModalId);
-  }
-
-  closeAddTransactionModal() {
     this.resetTransactionForm();
-    this.modalService.closeModal(this.addTransactionModalId);
+    this.modalService.openModal(this.addTransactionModalId);
   }
 
   resetTransactionForm() {
     this.transactionForm.reset({
-      date: this.datepipe.transform(new Date(), 'yyyy-MM-dd')
+      date: this.datepipe.transform(new Date(), 'yyyy-MM-dd'),
     });
+  }
+
+  closeAddTransactionModal() {
+    this.modalService.closeModal(this.addTransactionModalId);
   }
 
   addTransaction() {

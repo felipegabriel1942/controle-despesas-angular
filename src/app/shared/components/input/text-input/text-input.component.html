@@ -1,6 +1,7 @@
 <div class="form-group">
   <label for="description">{{ label }}</label>
   <input
+    [id]="fieldId"
     class="form-control"
     [formControl]="control"
     [ngClass]="{ 'is-invalid': control?.errors != null && control?.touched }"
