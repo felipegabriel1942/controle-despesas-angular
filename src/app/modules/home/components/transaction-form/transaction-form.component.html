@@ -27,12 +27,22 @@
       <app-select
         fieldId="transaction-type-select"
         optionLabel="description"
-        optionValue="pkTransaction"
+        optionValue="pkTransactionType"
         label="Tipo"
         [options]="typeFieldOptions"
         [control]="form.get('type')"
+        (onChange)="typeFieldChanged()"
       ></app-select>
     </div>
-    <div class="col-md-6"></div>
+    <div class="col-md-6">
+      <app-select
+        fieldId="transaction-category-select"
+        optionLabel="description"
+        optionValue="pkTransactionCategory"
+        label="Categoria"
+        [options]="categoryOptionsFiltered()"
+        [control]="form.get('category')"
+      ></app-select>
+    </div>
   </div>
 </form>

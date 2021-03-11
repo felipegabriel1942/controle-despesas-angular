@@ -1,9 +1,9 @@
 export class TransactionType {
-  pkTransaction: number;
+  pkTransactionType: number;
   description: string;
 
   constructor({ pkTransactionType = null, description = '' } = {}) {
-    this.pkTransaction = pkTransactionType;
+    this.pkTransactionType = pkTransactionType;
     this.description = description;
   }
 }

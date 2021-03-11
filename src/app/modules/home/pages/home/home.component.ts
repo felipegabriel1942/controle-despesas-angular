@@ -38,18 +38,26 @@ export class HomeComponent implements OnInit {
   resetTransactionForm() {
     this.transactionForm.reset({
       date: this.datepipe.transform(new Date(), 'yyyy-MM-dd'),
+      type: 1,
     });
   }
 
-  closeAddTransactionModal() {
-    this.modalService.closeModal(this.addTransactionModalId);
-  }
-
   addTransaction() {
+    if (this.transactionForm.invalid) {
+      console.error('Formulario inválido');
+      return;
+    }
+
     console.log(this.transactionForm.value);
     console.log(
       this.formatStringToDate(this.transactionForm.get('date').value)
     );
+
+    this.closeAddTransactionModal();
+  }
+
+  closeAddTransactionModal() {
+    this.modalService.closeModal(this.addTransactionModalId);
   }
 
   formatStringToDate(stringDate: string) {

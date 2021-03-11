@@ -4,7 +4,10 @@
     class="form-control"
     [formControl]="control"
     [id]="fieldId"
+    (change)="onChange.emit()"
   >
+    <option [value]="null" hidden>Escolha uma opção</option>
+    <option [value]="" hidden>Escolha uma opção</option>
     <option [value]="option[optionValue]" *ngFor="let option of options">
       {{ option[optionLabel] }}
     </option>

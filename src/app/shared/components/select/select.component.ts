@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -13,6 +13,7 @@ export class SelectComponent implements OnInit {
   @Input() optionLabel: string;
   @Input() optionValue: string;
   @Input() fieldId: string;
+  @Output() onChange = new EventEmitter();
 
   constructor() {}
 
@@ -26,6 +27,24 @@ export class SelectComponent implements OnInit {
     if (this.fieldId == null) {
       throw new Error(
         'Please inform an fieldId to the SelectComponent component.'
+      );
+    }
+
+    if (this.optionLabel == null) {
+      throw new Error(
+        'Please inform an optionLabel to the SelectComponent component.'
+      );
+    }
+
+    if (this.options == null) {
+      throw new Error(
+        'Please inform an options list to the SelectComponent component.'
+      );
+    }
+
+    if (this.optionValue == null) {
+      throw new Error(
+        'Please inform an optionValue to the SelectComponent component.'
       );
     }
   }
