@@ -12,7 +12,7 @@ export class ModalComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.modalId == null) {
-      throw new Error('Please inform an "modalId" to the <app-modal> component.');
+      throw new Error('Please inform an "modalId" to the ModalComponent component.');
     }
   }
 

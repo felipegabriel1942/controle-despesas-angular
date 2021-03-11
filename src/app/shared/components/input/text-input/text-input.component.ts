@@ -14,7 +14,7 @@ export class TextInputComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.control == null) {
-      throw new Error('Please inform an control to the <app-input> component.');
+      throw new Error('Please inform an control to the TextInputComponent component.');
     }
   }
 }

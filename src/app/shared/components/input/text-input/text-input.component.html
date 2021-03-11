@@ -3,7 +3,7 @@
   <input
     class="form-control"
     [formControl]="control"
-    [ngClass]="{ 'is-invalid': control.errors != null && control.touched }"
+    [ngClass]="{ 'is-invalid': control?.errors != null && control?.touched }"
   />
 
   <div *ngIf="control?.errors?.required" class="invalid-feedback">

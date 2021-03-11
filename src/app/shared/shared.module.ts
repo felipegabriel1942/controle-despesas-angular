@@ -20,7 +20,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     SwitchComponent,
     DateInputComponent,
     MonetaryInputComponent,
-    TextInputComponent
+    TextInputComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule, NgxMaskModule.forRoot()],
   exports: [

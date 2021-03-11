@@ -1,1 +1,29 @@
-<p>monetary-input works!</p>
+<div class="form-group">
+  <label for="description">{{ label }}</label>
+  <input
+    class="form-control"
+    [formControl]="control"
+    [ngClass]="{ 'is-invalid': control?.errors != null && control?.touched }"
+    prefix="R$ "
+    mask="separator.2"
+    thousandSeparator="."
+  />
+
+  <div *ngIf="control?.errors?.required" class="invalid-feedback">
+    Campo obrigatório
+  </div>
+  <div *ngIf="control?.errors?.minlength" class="invalid-feedback">
+    Campo deve ter no minimo
+    {{ control.errors?.minlength?.requiredLength }}
+    caracteres.
+  </div>
+  <div *ngIf="control?.errors?.maxlength" class="invalid-feedback">
+    Campo deve ter no maximo
+    {{ control.errors?.maxlength?.requiredLength }}
+    caracteres.
+  </div>
+  <div *ngIf="control?.errors?.min" class="invalid-feedback">
+    Valor do campo não pode ser a
+    {{ control.errors?.min?.min }}
+    .
+  </div>
