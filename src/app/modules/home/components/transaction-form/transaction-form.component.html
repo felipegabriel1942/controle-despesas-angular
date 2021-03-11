@@ -1,24 +1,23 @@
 <form [formGroup]="form">
-  <app-input
+  <app-text-input
     [control]="form.get('description')"
     label="Descrição"
-    type="text"
-  ></app-input>
+  ></app-text-input>
 
   <div class="row">
     <div class="col-md-6">
-      <app-input
+      <app-text-input
         [control]="form.get('value')"
         label="Valor"
         type="number"
-      ></app-input>
+      ></app-text-input>
     </div>
     <div class="col-md-6">
-      <app-input
+      <app-text-input
         [control]="form.get('date')"
         label="Data"
         type="date"
-      ></app-input>
+      ></app-text-input>
     </div>
   </div>
 </form>
