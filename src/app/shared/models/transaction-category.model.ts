@@ -1,15 +1,11 @@
 export class TransactionCategory {
-  pkTransactionCategory: number;
+  id: number;
   description: string;
-  fkTransactionType: number;
+  type: number;
 
-  constructor({
-    pkTransactionCategory = null,
-    description = '',
-    fkTransactionType = null,
-  } = {}) {
-    this.pkTransactionCategory = pkTransactionCategory;
+  constructor({ id = null, description = '', type = null } = {}) {
+    this.id = id;
     this.description = description;
-    this.fkTransactionType = fkTransactionType;
+    this.type = type;
   }
 }

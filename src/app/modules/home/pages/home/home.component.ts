@@ -3,6 +3,7 @@ import { DatePipe } from '@angular/common';
 
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalService } from 'src/app/shared/components/modal/modal.service';
+import { Transaction } from 'src/app/shared/models/transaction.model';
 
 @Component({
   selector: 'app-home',
@@ -11,6 +12,7 @@ import { ModalService } from 'src/app/shared/components/modal/modal.service';
 })
 export class HomeComponent implements OnInit {
   addTransactionModalId = 'addTransactionModal';
+  transactionList: Transaction[] = [];
 
   transactionForm = new FormGroup({
     description: new FormControl('', [
@@ -23,7 +25,7 @@ export class HomeComponent implements OnInit {
     date: new FormControl(this.datepipe.transform(new Date(), 'yyyy-MM-dd'), [
       Validators.required,
     ]),
-    category: new FormControl('', Validators.required),
+    category: new FormControl(null, Validators.required),
   });
 
   constructor(private modalService: ModalService, private datepipe: DatePipe) {}
@@ -48,10 +50,16 @@ export class HomeComponent implements OnInit {
       return;
     }
 
-    console.log(this.transactionForm.value);
-    console.log(
-      this.formatStringToDate(this.transactionForm.get('date').value)
-    );
+    const transaction = new Transaction({
+      id: 1,
+      date: this.formatStringToDate(this.transactionForm.get('date').value),
+      type: this.transactionForm.get('type').value,
+      category: +this.transactionForm.get('category').value,
+      description: this.transactionForm.get('description').value,
+      value: +this.transactionForm.get('value').value,
+    });
+
+    this.transactionList.push(transaction);
 
     this.closeAddTransactionModal();
   }

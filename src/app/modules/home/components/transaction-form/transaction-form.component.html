@@ -27,7 +27,7 @@
       <app-select
         fieldId="transaction-type-select"
         optionLabel="description"
-        optionValue="pkTransactionType"
+        optionValue="id"
         label="Tipo"
         [options]="typeFieldOptions"
         [control]="form.get('type')"
@@ -38,7 +38,7 @@
       <app-select
         fieldId="transaction-category-select"
         optionLabel="description"
-        optionValue="pkTransactionCategory"
+        optionValue="id"
         label="Categoria"
         [options]="categoryOptionsFiltered()"
         [control]="form.get('category')"
