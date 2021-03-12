@@ -1,9 +1,10 @@
 <div class="form-group">
   <label>{{ label }}</label>
   <select
-    class="form-control"
-    [formControl]="control"
     [id]="fieldId"
+    class="custom-select"
+    [formControl]="control"
+    [ngClass]="{ 'is-invalid': control?.errors != null && control?.touched }"
     (change)="onChange.emit()"
   >
     <option [value]="null" hidden>Escolha uma opção</option>
@@ -12,4 +13,22 @@
       {{ option[optionLabel] }}
     </option>
   </select>
+  <div *ngIf="control?.errors?.required" class="invalid-feedback">
+    Campo obrigatório
+  </div>
+  <div *ngIf="control?.errors?.minlength" class="invalid-feedback">
+    Campo deve ter no minimo
+    {{ control.errors?.minlength?.requiredLength }}
+    caracteres.
+  </div>
+  <div *ngIf="control?.errors?.maxlength" class="invalid-feedback">
+    Campo deve ter no maximo
+    {{ control.errors?.maxlength?.requiredLength }}
+    caracteres.
+  </div>
+  <div *ngIf="control?.errors?.min" class="invalid-feedback">
+    Valor do campo não pode ser a
+    {{ control.errors?.min?.min }}
+    .
+  </div>
 </div>
