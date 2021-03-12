@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { DatePipe } from '@angular/common';
+import { FormGroup } from '@angular/forms';
 
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalService } from 'src/app/shared/components/modal/modal.service';
 import { Transaction } from 'src/app/shared/models/transaction.model';
+import { TransactionFormService } from 'src/app/core/services/transaction/transaction-form.service';
+import { TransactionService } from 'src/app/core/services/transaction/transaction.service';
 
 @Component({
   selector: 'app-home',
@@ -12,26 +13,23 @@ import { Transaction } from 'src/app/shared/models/transaction.model';
 })
 export class HomeComponent implements OnInit {
   addTransactionModalId = 'addTransactionModal';
-  transactionList: Transaction[] = [];
+  transactions: Transaction[] = [];
   errorMessage = '';
+  transactionForm: FormGroup;
 
-  transactionForm = new FormGroup({
-    description: new FormControl('', [
-      Validators.required,
-      Validators.minLength(5),
-      Validators.maxLength(100),
-    ]),
-    value: new FormControl(null, [Validators.required, Validators.min(0)]),
-    type: new FormControl(1, Validators.required),
-    date: new FormControl(this.datepipe.transform(new Date(), 'yyyy-MM-dd'), [
-      Validators.required,
-    ]),
-    category: new FormControl(null, Validators.required),
-  });
+  constructor(
+    private modalService: ModalService,
+    private transactionService: TransactionService,
+    private transactionFormService: TransactionFormService
+  ) {}
 
-  constructor(private modalService: ModalService, private datepipe: DatePipe) {}
+  ngOnInit(): void {
+    this.transactionForm = this.transactionFormService.buildTransactionForm();
 
-  ngOnInit(): void {}
+    setTimeout(() => {
+      this.transactions = this.transactionService.getTransactions();
+    }, 1500);
+  }
 
   openAddTransactionModal(): void {
     this.resetTransactionForm();
@@ -39,10 +37,7 @@ export class HomeComponent implements OnInit {
   }
 
   resetTransactionForm(): void {
-    this.transactionForm.reset({
-      date: this.datepipe.transform(new Date(), 'yyyy-MM-dd'),
-      type: 1,
-    });
+    this.transactionFormService.resetTransactionForm(this.transactionForm);
   }
 
   addTransaction(): void {
@@ -52,22 +47,16 @@ export class HomeComponent implements OnInit {
       return;
     }
 
-    const transaction = new Transaction({
-      id: 1,
-      date: this.formatStringToDate(this.transactionForm.get('date').value),
-      type: this.transactionForm.get('type').value,
-      category: +this.transactionForm.get('category').value,
-      description: this.transactionForm.get('description').value,
-      value: +this.transactionForm.get('value').value,
-    });
+    const transaction = this.transactionFormService.convertFormToObject(
+      this.transactionForm
+    );
 
-    this.transactionList.push(transaction);
+    setTimeout(() => {
+      this.transactionService.saveTransaction(transaction);
+      this.transactions = this.transactionService.getTransactions();
+    }, 1500);
 
     this.closeAddTransactionModal();
-  }
-
-  formatStringToDate(stringDate: string): Date {
-    return new Date(stringDate + 'T00:00:00');
   }
 
   closeAddTransactionModal(): void {
@@ -75,7 +64,7 @@ export class HomeComponent implements OnInit {
     this.modalService.closeModal(this.addTransactionModalId);
   }
 
-  clearErrorMessage() {
+  clearErrorMessage(): void {
     this.errorMessage = '';
   }
 }

@@ -92,7 +92,7 @@ export class TransactionFormComponent implements OnInit {
 
   categoryOptionsFiltered(): TransactionCategory[] {
     return this.categoryFieldOptions.filter(
-      (category) => category.type == this.form.get('type').value
+      (category) => +category.type === +this.form.get('type').value
     );
   }
 

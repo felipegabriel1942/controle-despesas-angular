@@ -1,6 +1,6 @@
 <button
   type="button"
-  class="btn btn-success"
+  class="btn btn-outline-primary"
   (click)="openAddTransactionModal()"
 >
   Adicionar
@@ -15,17 +15,21 @@
       [type]="'error'"
       (onAlertClear)="clearErrorMessage()"
     ></app-alert>
-    values: {{ transactionForm.value | json }} <br />
+    <!-- values: {{ transactionForm.value | json }} <br />
     descriptionError:
     {{ transactionForm.get("description").errors | json }} descriptionError:
-    {{ transactionForm.get("value").errors | json }}
+    {{ transactionForm.get("value").errors | json }} -->
   </div>
   <div footer>
-    <button class="btn btn-danger mx-2" (click)="closeAddTransactionModal()">
+    <button class="btn btn-outline-danger mx-2" (click)="closeAddTransactionModal()">
       Fechar
     </button>
-    <button class="btn btn-primary mx-2" (click)="addTransaction()">
+    <button class="btn btn-outline-success mx-2" (click)="addTransaction()">
       Adicionar
     </button>
   </div>
 </app-modal>
+
+<div *ngFor="let transaction of transactions">
+  {{ transaction?.description }}
+</div>

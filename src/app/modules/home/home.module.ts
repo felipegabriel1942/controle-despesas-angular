@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -10,7 +11,13 @@ import { TransactionFormComponent } from './components/transaction-form/transact
 
 @NgModule({
   declarations: [HomeComponent, CardSummaryComponent, TransactionFormComponent],
-  imports: [CommonModule, HomeRoutingModule, SharedModule, ReactiveFormsModule],
-  providers: [DatePipe],
+  imports: [
+    CommonModule,
+    HomeRoutingModule,
+    SharedModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+  ],
+  providers: [],
 })
 export class HomeModule {}
