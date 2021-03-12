@@ -10,6 +10,7 @@ import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { DateInputComponent } from './components/input/date-input/date-input.component';
 import { MonetaryInputComponent } from './components/input/monetary-input/monetary-input.component';
 import { TextInputComponent } from './components/input/text-input/text-input.component';
+import { AlertComponent } from './components/alert/alert.component';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 @NgModule({
@@ -21,6 +22,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     DateInputComponent,
     MonetaryInputComponent,
     TextInputComponent,
+    AlertComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule, NgxMaskModule.forRoot()],
   exports: [
@@ -32,6 +34,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     TextInputComponent,
     DateInputComponent,
     MonetaryInputComponent,
+    AlertComponent,
   ],
 })
 export class SharedModule {}

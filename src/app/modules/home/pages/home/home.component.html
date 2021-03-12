@@ -10,6 +10,11 @@
   <div title>Adicione uma transação</div>
   <div body>
     <app-transaction-form [form]="transactionForm"></app-transaction-form>
+    <app-alert
+      [message]="errorMessage"
+      [type]="'error'"
+      (onAlertClear)="clearErrorMessage()"
+    ></app-alert>
     values: {{ transactionForm.value | json }} <br />
     descriptionError:
     {{ transactionForm.get("description").errors | json }} descriptionError:

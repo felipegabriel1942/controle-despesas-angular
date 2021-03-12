@@ -13,6 +13,7 @@ import { Transaction } from 'src/app/shared/models/transaction.model';
 export class HomeComponent implements OnInit {
   addTransactionModalId = 'addTransactionModal';
   transactionList: Transaction[] = [];
+  errorMessage = '';
 
   transactionForm = new FormGroup({
     description: new FormControl('', [
@@ -32,21 +33,22 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  openAddTransactionModal() {
+  openAddTransactionModal(): void {
     this.resetTransactionForm();
     this.modalService.openModal(this.addTransactionModalId);
   }
 
-  resetTransactionForm() {
+  resetTransactionForm(): void {
     this.transactionForm.reset({
       date: this.datepipe.transform(new Date(), 'yyyy-MM-dd'),
       type: 1,
     });
   }
 
-  addTransaction() {
+  addTransaction(): void {
     if (this.transactionForm.invalid) {
-      console.error('Formulario inválido');
+      this.transactionForm.markAllAsTouched();
+      this.errorMessage = 'Preencha todos os campos corretamente!';
       return;
     }
 
@@ -64,11 +66,16 @@ export class HomeComponent implements OnInit {
     this.closeAddTransactionModal();
   }
 
-  closeAddTransactionModal() {
+  formatStringToDate(stringDate: string): Date {
+    return new Date(stringDate + 'T00:00:00');
+  }
+
+  closeAddTransactionModal(): void {
+    this.clearErrorMessage();
     this.modalService.closeModal(this.addTransactionModalId);
   }
 
-  formatStringToDate(stringDate: string) {
-    return new Date(stringDate + 'T00:00:00');
+  clearErrorMessage() {
+    this.errorMessage = '';
   }
 }

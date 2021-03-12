@@ -90,13 +90,13 @@ export class TransactionFormComponent implements OnInit {
     );
   }
 
-  categoryOptionsFiltered() {
+  categoryOptionsFiltered(): TransactionCategory[] {
     return this.categoryFieldOptions.filter(
-      (category) => category.type == this.form.get('type').value
+      (category) => category.type === this.form.get('type').value
     );
   }
 
-  typeFieldChanged() {
+  typeFieldChanged(): void {
     this.form.get('category').setValue(null);
   }
 }
