@@ -23,7 +23,7 @@ export class AlertComponent implements OnInit {
     }
   }
 
-  get alertTypeClass() {
+  get alertTypeClass(): string {
     if (this.type === 'success') {
       return 'alert-success';
     }

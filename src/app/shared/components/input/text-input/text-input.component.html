@@ -10,6 +10,9 @@
   <div *ngIf="control?.errors?.required" class="invalid-feedback">
     Campo obrigatório
   </div>
+  <div *ngIf="control?.errors?.email" class="invalid-feedback">
+    E-mail inválido
+  </div>
   <div *ngIf="control?.errors?.minlength" class="invalid-feedback">
     Campo deve ter no minimo
     {{ control.errors?.minlength?.requiredLength }}

@@ -24,20 +24,12 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.buildTransactionForm();
+    this.getTransactions();
+  }
+
+  buildTransactionForm(): void {
     this.transactionForm = this.transactionFormService.buildTransactionForm();
-
-    setTimeout(() => {
-      this.transactions = this.transactionService.getTransactions();
-    }, 1500);
-  }
-
-  openAddTransactionModal(): void {
-    this.resetTransactionForm();
-    this.modalService.openModal(this.addTransactionModalId);
-  }
-
-  resetTransactionForm(): void {
-    this.transactionFormService.resetTransactionForm(this.transactionForm);
   }
 
   addTransaction(): void {
@@ -53,15 +45,30 @@ export class HomeComponent implements OnInit {
 
     setTimeout(() => {
       this.transactionService.saveTransaction(transaction);
-      this.transactions = this.transactionService.getTransactions();
     }, 1500);
+    this.getTransactions();
 
     this.closeAddTransactionModal();
+  }
+
+  getTransactions(): void {
+    setTimeout(() => {
+      this.transactions = this.transactionService.getTransactions();
+    }, 1500);
   }
 
   closeAddTransactionModal(): void {
     this.clearErrorMessage();
     this.modalService.closeModal(this.addTransactionModalId);
+  }
+
+  openAddTransactionModal(): void {
+    this.resetTransactionForm();
+    this.modalService.openModal(this.addTransactionModalId);
+  }
+
+  resetTransactionForm(): void {
+    this.transactionFormService.resetTransactionForm(this.transactionForm);
   }
 
   clearErrorMessage(): void {

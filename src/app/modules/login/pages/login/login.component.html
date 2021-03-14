@@ -1,0 +1,13 @@
+<form [formGroup]="loginForm">
+  <app-text-input
+    [control]="loginForm.get('email')"
+    fieldId="login-email-input"
+    label="E-mail"
+  ></app-text-input>
+  <app-text-input
+    [control]="loginForm.get('userPassword')"
+    fieldId="login-password-input"
+    label="Senha"
+  ></app-text-input>
+  <button class="btn btn-primary" (click)="authenticateUser()">Entrar</button>
+</form>
