@@ -41,14 +41,10 @@ export class LoginComponent implements OnInit {
     this.authenticationService.authenticateUser(user).subscribe({
       next: (res: any) => {
         this.saveTokenOnLocalStorage(res);
-        this.router.navigate(['/home']);
+        this.navigateToHomePage();
       },
       error: () => {},
     });
-  }
-
-  saveTokenOnLocalStorage(res: any): void {
-    this.localStorage.set(StorageKey.Token, res.headers.get('Authorization'));
   }
 
   validateForm(): void {
@@ -63,6 +59,14 @@ export class LoginComponent implements OnInit {
       email: this.loginForm.get('email').value,
       userPassword: this.loginForm.get('userPassword').value,
     });
+  }
+
+  navigateToHomePage(): void {
+    this.router.navigate(['/home']);
+  }
+
+  saveTokenOnLocalStorage(res: any): void {
+    this.localStorage.set(StorageKey.Token, res.headers.get('Authorization'));
   }
 
   clearErrorMessage(): void {
