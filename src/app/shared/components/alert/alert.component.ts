@@ -14,10 +14,6 @@ export class AlertComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    if (this.message == null) {
-      throw new Error('Please inform an message.');
-    }
-
     if (this.type == null) {
       throw new Error('Please inform an type.');
     }
