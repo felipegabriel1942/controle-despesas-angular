@@ -1,4 +1,7 @@
-<app-header *ngIf="showHeader()"></app-header>
-<main class="p-3">
+<app-header *ngIf="!isLoginPage()"></app-header>
+<main
+  class="p-3"
+  [ngClass]="{ 'background-login': isLoginPage() }"
+>
   <router-outlet></router-outlet>
 </main>

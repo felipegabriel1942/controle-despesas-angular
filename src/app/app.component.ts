@@ -41,7 +41,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscriptions$.push(router$);
   }
 
-  showHeader(): boolean {
-    return this.currentUrl !== '';
+  isLoginPage(): boolean {
+    return this.currentUrl === '';
   }
 }

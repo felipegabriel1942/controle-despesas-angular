@@ -1,5 +1,5 @@
 <div class="h-100 d-flex align-items-center">
-  <div class="card col-md-6 mx-auto shadow">
+  <div class="card col-xl-3 col-lg-5 col-md-6  mx-auto shadow">
     <div class="card-body">
       <form [formGroup]="loginForm">
         <app-text-input
@@ -12,19 +12,45 @@
           fieldId="login-password-input"
           label="Senha"
         ></app-text-input>
-        <app-alert
-          [message]="errorMessage"
-          type="error"
-          (onAlertClear)="clearErrorMessage()"
-        ></app-alert>
+        <app-text-input
+          *ngIf="signUpMode"
+          [control]="loginForm.get('userPassword')"
+          fieldId="login-confirm-password-input"
+          label="Confirmar Senha"
+        ></app-text-input>
       </form>
-      <div class="row">
+      <app-alert
+        [message]="errorMessage"
+        type="error"
+        (onAlertClear)="clearErrorMessage()"
+      ></app-alert>
+      <div class="row" *ngIf="!signUpMode">
+        <div class="col-6 my-1">
+          <button class="btn btn-success btn-block" (click)="signUpMode = true">
+            Cadastre-se
+          </button>
+        </div>
+        <div class="col-6 my-1">
+          <button
+            class="btn btn-primary btn-block"
+            (click)="authenticateUser()"
+          >
+            Entrar
+          </button>
+        </div>
+      </div>
+      <div class="row" *ngIf="signUpMode">
         <div class="col-md-6 my-1">
-          <button class="btn btn-success btn-block">Cadastre-se</button>
+          <button class="btn btn-danger btn-block" (click)="signUpMode = false">
+            Cancelar
+          </button>
         </div>
         <div class="col-md-6 my-1">
-          <button class="btn btn-primary btn-block" (click)="authenticateUser()">
-            Entrar
+          <button
+            class="btn btn-primary btn-block"
+            (click)="authenticateUser()"
+          >
+            Cadastrar
           </button>
         </div>
       </div>

@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   });
 
   errorMessage: string;
+  signUpMode: boolean;
 
   constructor(
     private authenticationService: AuthenticationService,
