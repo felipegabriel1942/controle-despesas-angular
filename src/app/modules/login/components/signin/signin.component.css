@@ -1,0 +1,9 @@
+p {
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+span {
+  font-weight: bold;
+  cursor: pointer;
+}

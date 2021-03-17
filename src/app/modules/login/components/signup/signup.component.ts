@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
-import { LocalStorageService } from 'src/app/core/services/local-storage/local-storage.service';
 import { User } from 'src/app/shared/models/user.model';
 
 @Component({
@@ -21,7 +20,6 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private authenticationService: AuthenticationService,
-    private localStorage: LocalStorageService,
     private router: Router
   ) {}
 
@@ -33,8 +31,8 @@ export class SignupComponent implements OnInit {
     const user = this.convertFormToObject();
 
     this.authenticationService.createUser(user).subscribe({
-      next: (res: any) => {
-        console.log(res);
+      next: () => {
+        this.navigateToSigninPage();
       },
       error: (err) => {
         this.alertMessage = JSON.parse(err.error).message;
@@ -56,6 +54,10 @@ export class SignupComponent implements OnInit {
       this.alertMessage = 'Preencha os campos corretamente!';
       throw new Error('Invalid form');
     }
+  }
+
+  navigateToSigninPage(): void {
+    this.router.navigate(['/']);
   }
 
   clearAlertMessage(): void {
