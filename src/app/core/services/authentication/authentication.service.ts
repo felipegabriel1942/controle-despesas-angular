@@ -16,4 +16,11 @@ export class AuthenticationService {
       responseType: 'text',
     });
   }
+
+  createUser(user: User): Observable<any> {
+    return this.http.post(`${apiUrl}/user`, user, {
+      observe: 'response',
+      responseType: 'text',
+    });
+  }
 }

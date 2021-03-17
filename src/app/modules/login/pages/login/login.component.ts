@@ -15,9 +15,12 @@ export class LoginComponent implements OnInit {
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     userPassword: new FormControl('', [Validators.required]),
+    confirmPassword: new FormControl({ value: '', disabled: true }, [
+      Validators.required,
+    ]),
   });
 
-  errorMessage: string;
+  alertMessage: string;
   signUpMode: boolean;
 
   constructor(
@@ -44,13 +47,34 @@ export class LoginComponent implements OnInit {
         this.saveTokenOnLocalStorage(res);
         this.navigateToHomePage();
       },
-      error: () => {},
+      error: (err) => {
+        if (err.status === 403) {
+          this.alertMessage = 'E-mail ou senha inválidos.';
+        }
+      },
+    });
+  }
+
+  createUser(): void {
+    this.validateForm();
+
+    const user = this.convertFormToObject();
+
+    this.authenticationService.createUser(user).subscribe({
+      next: (res: any) => {
+        console.log(res);
+      },
+      error: (err) => {
+        this.alertMessage = JSON.parse(err.error).message;
+      },
     });
   }
 
   validateForm(): void {
+    this.loginForm.markAllAsTouched();
+
     if (this.loginForm.invalid) {
-      this.errorMessage = 'Preencha os campos corretamente!';
+      this.alertMessage = 'Preencha os campos corretamente!';
       throw new Error('Invalid form');
     }
   }
@@ -70,7 +94,21 @@ export class LoginComponent implements OnInit {
     this.localStorage.set(StorageKey.Token, res.headers.get('Authorization'));
   }
 
-  clearErrorMessage(): void {
-    this.errorMessage = '';
+  clearAlertMessage(): void {
+    this.alertMessage = '';
+  }
+
+  toogleSigupMode(): void {
+    this.signUpMode = !this.signUpMode;
+    this.loginForm.reset();
+    this.toogleConfirmPasswordField();
+  }
+
+  toogleConfirmPasswordField(): void {
+    if (this.signUpMode) {
+      this.loginForm.get('confirmPassword').enable();
+    } else {
+      this.loginForm.get('confirmPassword').disable();
+    }
   }
 }
