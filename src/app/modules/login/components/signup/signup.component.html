@@ -1,0 +1,34 @@
+<form [formGroup]="loginForm">
+  <app-text-input
+    [control]="loginForm.get('email')"
+    fieldId="login-email-input"
+    label="E-mail"
+  ></app-text-input>
+  <app-text-input
+    [control]="loginForm.get('userPassword')"
+    fieldId="login-password-input"
+    label="Senha"
+  ></app-text-input>
+  <app-text-input
+    [control]="loginForm.get('confirmPassword')"
+    fieldId="login-confirm-password-input"
+    label="Confirmar Senha"
+  ></app-text-input>
+</form>
+<app-alert
+  [message]="alertMessage"
+  type="error"
+  (onAlertClear)="clearAlertMessage()"
+></app-alert>
+<div class="row">
+  <div class="col-6 my-1">
+    <button class="btn btn-danger btn-block" routerLink="/">
+      Cancelar
+    </button>
+  </div>
+  <div class="col-6 my-1">
+    <button class="btn btn-primary btn-block" (click)="createUser()">
+      Cadastrar
+    </button>
+  </div>
+</div>

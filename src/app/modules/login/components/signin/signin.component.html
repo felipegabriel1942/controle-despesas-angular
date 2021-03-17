@@ -1,0 +1,36 @@
+<form [formGroup]="loginForm">
+  <app-text-input
+    [control]="loginForm.get('email')"
+    fieldId="login-email-input"
+    label="E-mail"
+  ></app-text-input>
+  <app-text-input
+    [control]="loginForm.get('userPassword')"
+    fieldId="login-password-input"
+    label="Senha"
+  ></app-text-input>
+
+  <app-alert
+    [message]="alertMessage"
+    type="error"
+    (onAlertClear)="clearAlertMessage()"
+  ></app-alert>
+
+  <div class="row">
+    <div class="col-12 my-1">
+      <button class="btn btn-primary btn-block" (click)="authenticateUser()">
+        Entrar
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <p style="font-size: 12px; margin-top: 10px">
+      Ainda não tem conta? clique
+      <span routerLink="/signup" style="font-weight: bold; cursor: pointer"
+        >aqui</span
+      >
+      para se cadastrar
+    </p>
+  </div>
+</form>

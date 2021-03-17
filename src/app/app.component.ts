@@ -42,6 +42,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   isLoginPage(): boolean {
-    return this.currentUrl === '';
+    return this.currentUrl === '' || this.currentUrl === '/signup';
   }
 }
