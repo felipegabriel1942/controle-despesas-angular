@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { User } from 'src/app/shared/models/user.model';
 
@@ -16,11 +18,10 @@ export class SignupComponent implements OnInit {
     confirmPassword: new FormControl('', [Validators.required]),
   });
 
-  alertMessage = '';
-
   constructor(
     private authenticationService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {}
@@ -33,9 +34,14 @@ export class SignupComponent implements OnInit {
     this.authenticationService.createUser(user).subscribe({
       next: () => {
         this.navigateToSigninPage();
+        this.toastr.success('', 'Usuário cadastrado com sucesso.', {
+          progressBar: true,
+        });
       },
       error: (err) => {
-        this.alertMessage = JSON.parse(err.error).message;
+        this.toastr.error('', JSON.parse(err.error).message, {
+          progressBar: true,
+        });
       },
     });
   }
@@ -51,16 +57,11 @@ export class SignupComponent implements OnInit {
     this.loginForm.markAllAsTouched();
 
     if (this.loginForm.invalid) {
-      this.alertMessage = 'Preencha os campos corretamente!';
       throw new Error('Invalid form');
     }
   }
 
   navigateToSigninPage(): void {
     this.router.navigate(['/']);
-  }
-
-  clearAlertMessage(): void {
-    this.alertMessage = '';
   }
 }

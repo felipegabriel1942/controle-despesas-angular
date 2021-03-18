@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+
+import { ToastrService } from 'ngx-toastr';
+
 import { StorageKey } from 'src/app/core/enum/storage-key.enum';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { LocalStorageService } from 'src/app/core/services/local-storage/local-storage.service';
@@ -17,12 +20,11 @@ export class SigninComponent implements OnInit {
     userPassword: new FormControl('', [Validators.required]),
   });
 
-  alertMessage = '';
-
   constructor(
     private authenticationService: AuthenticationService,
     private localStorage: LocalStorageService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -45,7 +47,9 @@ export class SigninComponent implements OnInit {
       },
       error: (err) => {
         if (err.status === 403) {
-          this.alertMessage = 'E-mail ou senha inválidos.';
+          this.toastr.error('', 'E-mail ou senha inválidos.', {
+            progressBar: true,
+          });
         }
       },
     });
@@ -59,7 +63,6 @@ export class SigninComponent implements OnInit {
     this.loginForm.markAllAsTouched();
 
     if (this.loginForm.invalid) {
-      this.alertMessage = 'Preencha os campos corretamente!';
       throw new Error('Invalid form');
     }
   }
@@ -69,10 +72,6 @@ export class SigninComponent implements OnInit {
       email: this.loginForm.get('email').value,
       userPassword: this.loginForm.get('userPassword').value,
     });
-  }
-
-  clearAlertMessage(): void {
-    this.alertMessage = '';
   }
 
   navigateToHomePage(): void {

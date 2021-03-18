@@ -10,12 +10,6 @@
     label="Senha"
   ></app-text-input>
 
-  <app-alert
-    [message]="alertMessage"
-    type="error"
-    (onAlertClear)="clearAlertMessage()"
-  ></app-alert>
-
   <div class="row">
     <div class="col-12 my-1">
       <button class="btn btn-primary btn-block" (click)="authenticateUser()">
