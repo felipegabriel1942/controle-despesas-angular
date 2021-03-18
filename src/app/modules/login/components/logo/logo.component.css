@@ -1,0 +1,16 @@
+.logo-container {
+  background-color: rgb(186, 236, 205);
+  padding: 15px;
+  border-radius: 40px;
+  display: inline-block;
+}
+
+.txt-logo-container {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+
+span {
+  font-weight: bold;
+}
