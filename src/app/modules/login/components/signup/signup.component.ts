@@ -37,12 +37,7 @@ export class SignupComponent implements OnInit {
         this.toastr.success('', 'Usuário cadastrado com sucesso.', {
           progressBar: true,
         });
-      },
-      error: (err) => {
-        this.toastr.error('', JSON.parse(err.error).message, {
-          progressBar: true,
-        });
-      },
+      }
     });
   }
 

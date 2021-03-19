@@ -45,13 +45,6 @@ export class SigninComponent implements OnInit {
         this.saveTokenOnLocalStorage(res);
         this.navigateToHomePage();
       },
-      error: (err) => {
-        if (err.status === 403) {
-          this.toastr.error('', 'E-mail ou senha inválidos.', {
-            progressBar: true,
-          });
-        }
-      },
     });
   }
 
