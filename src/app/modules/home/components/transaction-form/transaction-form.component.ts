@@ -1,5 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { forkJoin } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { TransactionCategoryService } from 'src/app/core/services/transaction-category/transaction-category.service';
+import { TransactionTypeService } from 'src/app/core/services/transaction-type/transaction-type.service';
 import { TransactionCategory } from 'src/app/shared/models/transaction-category.model';
 import { TransactionType } from 'src/app/shared/models/transaction-type.model';
 
@@ -11,88 +15,31 @@ import { TransactionType } from 'src/app/shared/models/transaction-type.model';
 export class TransactionFormComponent implements OnInit {
   @Input() form: FormGroup;
 
-  typeFieldOptions: TransactionType[] = [];
-  categoryFieldOptions: TransactionCategory[] = [];
+  typeOptions: TransactionType[] = [];
+  categoryOptions: TransactionCategory[] = [];
 
-  constructor() {}
+  constructor(
+    private transactionCategoryService: TransactionCategoryService,
+    private transactionTypeService: TransactionTypeService
+  ) {}
 
   ngOnInit(): void {
-    this.typeFieldOptions.push(
-      ...[
-        new TransactionType({ id: 1, description: 'Despesa' }),
-        new TransactionType({ id: 2, description: 'Receita' }),
-      ]
-    );
+    const category$ = this.transactionCategoryService.getTransactionCategories();
+    const type$ = this.transactionTypeService.getTransactionTypes();
 
-    this.categoryFieldOptions.push(
-      ...[
-        new TransactionCategory({
-          id: 1,
-          description: 'Alimentação',
-          type: 1,
-        }),
-        new TransactionCategory({
-          id: 2,
-          description: 'Educação',
-          type: 1,
-        }),
-        new TransactionCategory({
-          id: 3,
-          description: 'Lazer',
-          type: 1,
-        }),
-        new TransactionCategory({
-          id: 4,
-          description: 'Moradia',
-          type: 1,
-        }),
-        new TransactionCategory({
-          id: 5,
-          description: 'Pagamentos',
-          type: 1,
-        }),
-        new TransactionCategory({
-          id: 6,
-          description: 'Roupa',
-          type: 1,
-        }),
-        new TransactionCategory({
-          id: 7,
-          description: 'Saúde',
-          type: 1,
-        }),
-        new TransactionCategory({
-          id: 8,
-          description: 'Transporte',
-          type: 1,
-        }),
-        new TransactionCategory({
-          id: 9,
-          description: 'Salário',
-          type: 2,
-        }),
-        new TransactionCategory({
-          id: 10,
-          description: 'Presente',
-          type: 2,
-        }),
-        new TransactionCategory({
-          id: 11,
-          description: 'Investimento',
-          type: 2,
-        }),
-        new TransactionCategory({
-          id: 12,
-          description: 'Prêmio',
-          type: 2,
-        }),
-      ]
-    );
+    forkJoin([category$, type$])
+      .pipe(
+        map((res) => {
+          this.categoryOptions = res[0] as TransactionCategory[];
+          this.typeOptions = res[1] as TransactionType[];
+        })
+      )
+      .subscribe(() => {});
   }
 
   categoryOptionsFiltered(): TransactionCategory[] {
-    return this.categoryFieldOptions.filter(
-      (category) => +category.type === +this.form.get('type').value
+    return this.categoryOptions.filter(
+      (category) => +category.type.id === +this.form.get('type').value
     );
   }
 

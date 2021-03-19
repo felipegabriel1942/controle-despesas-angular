@@ -5,7 +5,6 @@ import { ModalService } from 'src/app/shared/components/modal/modal.service';
 import { Transaction } from 'src/app/shared/models/transaction.model';
 import { TransactionFormService } from 'src/app/core/services/transaction/transaction-form.service';
 import { TransactionService } from 'src/app/core/services/transaction/transaction.service';
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -20,7 +19,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private modalService: ModalService,
     private transactionService: TransactionService,
-    private transactionFormService: TransactionFormService
+    private transactionFormService: TransactionFormService,
   ) {}
 
   ngOnInit(): void {

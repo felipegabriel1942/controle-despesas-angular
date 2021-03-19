@@ -1,9 +1,15 @@
+import { TransactionType } from './transaction-type.model';
+
 export class TransactionCategory {
   id: number;
   description: string;
-  type: number;
+  type: TransactionType;
 
-  constructor({ id = null, description = '', type = null } = {}) {
+  constructor({
+    id = null,
+    description = '',
+    type = new TransactionType(),
+  } = {}) {
     this.id = id;
     this.description = description;
     this.type = type;
