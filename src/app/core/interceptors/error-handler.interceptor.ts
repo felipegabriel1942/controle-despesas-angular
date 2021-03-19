@@ -20,15 +20,20 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
-        if (error.error != null) {
-          this.toast.error('', JSON.parse(error.error).message);
+
+        let errorMessage = '';
+
+        if (error.status === 0) {
+          this.toast.error('', 'Falha de conexão com o servidor');
         }
 
         if (error.status === 403) {
           this.toast.error('', 'E-mail ou senha inválidos');
         }
 
-        let errorMessage = '';
+        if (error.error != null) {
+          this.toast.error('', JSON.parse(error.error).message);
+        }
 
         if (error.error instanceof ErrorEvent) {
           errorMessage = `Error: ${error.error.message}`;
