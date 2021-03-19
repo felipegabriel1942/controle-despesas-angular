@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class AlertComponent implements OnInit {
   @Input() message;
   @Input() type;
+  @Input() closable = true;
 
   @Output() onAlertClear = new EventEmitter();
 

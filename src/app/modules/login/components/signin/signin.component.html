@@ -1,11 +1,11 @@
-<form [formGroup]="loginForm">
+<form [formGroup]="signinForm">
   <app-text-input
-    [control]="loginForm.get('email')"
+    [control]="signinForm.get('email')"
     fieldId="login-email-input"
     label="E-mail"
   ></app-text-input>
   <app-text-input
-    [control]="loginForm.get('userPassword')"
+    [control]="signinForm.get('password')"
     fieldId="login-password-input"
     label="Senha"
   ></app-text-input>

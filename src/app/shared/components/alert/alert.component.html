@@ -6,6 +6,7 @@
 >
   {{ message }}
   <button
+    *ngIf="closable"
     type="button"
     class="close"
     data-dismiss="alert"

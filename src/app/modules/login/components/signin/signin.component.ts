@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { ToastrService } from 'ngx-toastr';
-
 import { StorageKey } from 'src/app/core/enum/storage-key.enum';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { LocalStorageService } from 'src/app/core/services/local-storage/local-storage.service';
@@ -15,16 +13,15 @@ import { User } from 'src/app/shared/models/user.model';
   styleUrls: ['./signin.component.css'],
 })
 export class SigninComponent implements OnInit {
-  loginForm = new FormGroup({
+  signinForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-    userPassword: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required]),
   });
 
   constructor(
     private authenticationService: AuthenticationService,
     private localStorage: LocalStorageService,
-    private router: Router,
-    private toastr: ToastrService
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -53,17 +50,17 @@ export class SigninComponent implements OnInit {
   }
 
   validateForm(): void {
-    this.loginForm.markAllAsTouched();
+    this.signinForm.markAllAsTouched();
 
-    if (this.loginForm.invalid) {
+    if (this.signinForm.invalid) {
       throw new Error('Invalid form');
     }
   }
 
   convertFormToObject(): User {
     return new User({
-      email: this.loginForm.get('email').value,
-      userPassword: this.loginForm.get('userPassword').value,
+      email: this.signinForm.get('email').value,
+      userPassword: this.signinForm.get('password').value,
     });
   }
 

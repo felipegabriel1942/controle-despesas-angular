@@ -1,19 +1,25 @@
-<form [formGroup]="loginForm">
+<form [formGroup]="signupForm">
   <app-text-input
-    [control]="loginForm.get('email')"
+    [control]="signupForm.get('email')"
     fieldId="login-email-input"
     label="E-mail"
   ></app-text-input>
   <app-text-input
-    [control]="loginForm.get('userPassword')"
+    [control]="signupForm.get('password')"
     fieldId="login-password-input"
     label="Senha"
   ></app-text-input>
   <app-text-input
-    [control]="loginForm.get('confirmPassword')"
-    fieldId="login-confirm-password-input"
-    label="Confirmar Senha"
+    [control]="signupForm.get('passwordConfirmation')"
+    fieldId="login-passwordconfirmation-input"
+    label="Confirmação de Senha"
   ></app-text-input>
+  <app-alert
+    *ngIf="showPasswordDontMatchAlert()"
+    [type]="'error'"
+    [message]="'Senha e confirmação de senha devem ser iguais.'"
+    [closable]="false"
+  ></app-alert>
 </form>
 <div class="row">
   <div class="col-6 my-1">
