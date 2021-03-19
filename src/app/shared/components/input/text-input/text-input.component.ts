@@ -24,4 +24,9 @@ export class TextInputComponent implements OnInit {
       );
     }
   }
+
+
+  isValid() {
+    return this.control?.valid || this.control?.untouched;
+  }
 }

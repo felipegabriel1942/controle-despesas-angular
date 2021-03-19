@@ -1,10 +1,12 @@
 <div class="form-group">
-  <label for="description">{{ label }}</label>
+  <label for="description" [ngClass]="{ 'text-danger': !isValid() }">{{
+    label
+  }}</label>
   <input
     [id]="fieldId"
     class="form-control"
     [formControl]="control"
-    [ngClass]="{ 'is-invalid': control?.errors != null && control?.touched }"
+    [ngClass]="{ 'is-invalid': !isValid() }"
   />
 
   <div *ngIf="control?.errors?.required" class="invalid-feedback">
