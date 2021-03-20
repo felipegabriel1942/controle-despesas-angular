@@ -15,7 +15,7 @@
     label="Confirmação de Senha"
   ></app-text-input>
   <app-alert
-    *ngIf="showPasswordDontMatchAlert()"
+    *ngIf="showErrorAlert()"
     [type]="'error'"
     [message]="'Senha e confirmação de senha devem ser iguais.'"
     [closable]="false"

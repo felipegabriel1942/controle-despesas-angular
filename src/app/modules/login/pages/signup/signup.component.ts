@@ -68,7 +68,7 @@ export class SignupComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
-  showPasswordDontMatchAlert(): boolean {
+  showErrorAlert(): boolean {
     return (
       this.signupForm.errors != null &&
       this.signupForm.get('password').touched &&

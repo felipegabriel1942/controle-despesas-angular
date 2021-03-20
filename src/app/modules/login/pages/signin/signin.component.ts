@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { forkJoin } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { StorageKey } from 'src/app/core/enum/storage-key.enum';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
@@ -33,28 +35,40 @@ export class SigninComponent implements OnInit {
   }
 
   authenticateUser(): void {
-    this.validateForm();
+    if (!this.validateForm()) {
+      return;
+    }
 
     const user = this.convertFormToObject();
 
-    this.authenticationService.authenticateUser(user).subscribe({
-      next: (res: any) => {
-        this.saveTokenOnLocalStorage(res);
+    const join$ = forkJoin([
+      this.authenticationService.authenticateUser(user),
+      this.authenticationService.getUserByEmail(user.email),
+    ]);
+
+    join$
+      .pipe(
+        map((res) => {
+          this.saveTokenOnLocalStorage(res[0]);
+          this.saveUserOnLocalStorage(res[1]);
+        })
+      )
+      .subscribe(() => {
         this.navigateToHomePage();
-      },
-    });
+      });
+  }
+
+  validateForm(): boolean {
+    this.signinForm.markAllAsTouched();
+    return this.signinForm.valid;
   }
 
   saveTokenOnLocalStorage(res: any): void {
     this.localStorage.set(StorageKey.Token, res.headers.get('Authorization'));
   }
 
-  validateForm(): void {
-    this.signinForm.markAllAsTouched();
-
-    if (this.signinForm.invalid) {
-      throw new Error('Invalid form');
-    }
+  saveUserOnLocalStorage(user: any): void {
+    this.localStorage.set(StorageKey.User, user);
   }
 
   convertFormToObject(): User {

@@ -21,4 +21,8 @@ export class AuthenticationService {
       responseType: 'text',
     });
   }
+
+  getUserByEmail(email: string): Observable<User> {
+    return this.http.get<User>(`user?email=${email}`);
+  }
 }
