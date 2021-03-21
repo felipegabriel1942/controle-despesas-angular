@@ -1,13 +1,20 @@
 import { DatePipe } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { TransactionCategory } from 'src/app/shared/models/transaction-category.model';
+import { TransactionType } from 'src/app/shared/models/transaction-type.model';
 import { Transaction } from 'src/app/shared/models/transaction.model';
+import { StorageKey } from '../../enum/storage-key.enum';
+import { LocalStorageService } from '../local-storage/local-storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TransactionFormService {
-  constructor(private datepipe: DatePipe) {}
+  constructor(
+    private datepipe: DatePipe,
+    private localStorageService: LocalStorageService
+  ) {}
 
   buildTransactionForm(): FormGroup {
     return new FormGroup({
@@ -33,12 +40,21 @@ export class TransactionFormService {
   }
 
   convertFormToObject(form: FormGroup): Transaction {
+    const type = new TransactionType({ id: form.get('type').value });
+    const category = new TransactionCategory({
+      id: +form.get('category').value,
+      type: type,
+    });
+
+    const user = this.localStorageService.get(StorageKey.User);
+
     return new Transaction({
-      date: this.formatStringToDate(form.get('date').value),
-      type: form.get('type').value,
-      category: +form.get('category').value,
+      transactionDate: this.formatStringToDate(form.get('date').value),
+      type: type,
+      category: category,
       description: form.get('description').value,
       value: +form.get('value').value,
+      user: user,
     });
   }
 

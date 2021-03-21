@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Transaction } from 'src/app/shared/models/transaction.model';
 
 @Injectable({
@@ -8,10 +9,8 @@ import { Transaction } from 'src/app/shared/models/transaction.model';
 export class TransactionService {
   constructor(private http: HttpClient) {}
 
-  saveTransaction(transaction: Transaction): void {
-    const transactions = this.getTransactions();
-    transactions.push(transaction);
-    localStorage.setItem('transactions', JSON.stringify(transactions));
+  saveTransaction(transaction: Transaction): Observable<Transaction> {
+    return this.http.post<Transaction>('transaction', transaction);
   }
 
   getTransactions(): any[] {

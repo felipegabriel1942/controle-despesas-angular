@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private modalService: ModalService,
     private transactionService: TransactionService,
-    private transactionFormService: TransactionFormService,
+    private transactionFormService: TransactionFormService
   ) {}
 
   ngOnInit(): void {
@@ -42,12 +42,18 @@ export class HomeComponent implements OnInit {
       this.transactionForm
     );
 
-    setTimeout(() => {
-      this.transactionService.saveTransaction(transaction);
-    }, 1500);
-    this.getTransactions();
+    console.log(transaction);
 
-    this.closeAddTransactionModal();
+    this.transactionService.saveTransaction(transaction).subscribe({
+      next: (res) => {
+        this.closeAddTransactionModal();
+        console.log(res);
+      },
+    });
+
+    // this.getTransactions();
+
+
   }
 
   getTransactions(): void {

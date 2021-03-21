@@ -1,6 +1,7 @@
 .logo-container {
   background-color: rgb(186, 236, 205);
   padding: 15px;
+  margin-bottom: 10px;
   border-radius: 40px;
   display: inline-block;
 }

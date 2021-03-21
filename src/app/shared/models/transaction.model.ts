@@ -1,24 +1,31 @@
+import { TransactionCategory } from './transaction-category.model';
+import { TransactionType } from './transaction-type.model';
+import { User } from './user.model';
+
 export class Transaction {
   id: number;
   description: string;
   value: number;
-  date: Date;
-  type: number;
-  category: number;
+  transactionDate: Date;
+  type: TransactionType;
+  category: TransactionCategory;
+  user: User;
 
   constructor({
     id = null,
     description = '',
     value = null,
-    date = new Date(),
+    transactionDate = new Date(),
     type = null,
     category = null,
+    user = null,
   } = {}) {
     this.id = id;
     this.description = description;
     this.value = value;
-    this.date = date;
+    this.transactionDate = transactionDate;
     this.type = type;
     this.category = category;
+    this.user = user;
   }
 }

@@ -20,7 +20,6 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
-
         let errorMessage = '';
 
         if (error.status === 0) {
@@ -32,7 +31,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
         }
 
         if (error.error != null) {
-          this.toast.error('', JSON.parse(error.error).message);
+          this.toast.error('', JSON.parse(JSON.stringify(error.error)).message);
         }
 
         if (error.error instanceof ErrorEvent) {
