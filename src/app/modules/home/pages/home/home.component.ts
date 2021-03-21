@@ -42,24 +42,18 @@ export class HomeComponent implements OnInit {
       this.transactionForm
     );
 
-    console.log(transaction);
-
     this.transactionService.saveTransaction(transaction).subscribe({
       next: (res) => {
         this.closeAddTransactionModal();
-        console.log(res);
+        this.getTransactions();
       },
     });
-
-    // this.getTransactions();
-
-
   }
 
   getTransactions(): void {
-    setTimeout(() => {
-      this.transactions = this.transactionService.getTransactions();
-    }, 1500);
+    this.transactionService.getTransactions().subscribe((res) => {
+      console.log(res);
+    });
   }
 
   closeAddTransactionModal(): void {
