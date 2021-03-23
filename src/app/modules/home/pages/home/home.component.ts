@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit {
 
   getTransactions(): void {
     this.transactionService.getTransactions().subscribe((res) => {
-      console.log(res);
+      this.transactions = res.content;
     });
   }
 

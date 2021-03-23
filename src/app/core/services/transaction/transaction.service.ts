@@ -19,9 +19,9 @@ export class TransactionService {
     return this.http.post<Transaction>('transaction', transaction);
   }
 
-  getTransactions(): Observable<Transaction[]> {
+  getTransactions(): Observable<any> {
     const user = this.localStorageService.get(StorageKey.User) as User;
 
-    return this.http.get<Transaction[]>(`transaction?userId=${user.id}`);
+    return this.http.get<any>(`transaction?userId=${user.id}`);
   }
 }

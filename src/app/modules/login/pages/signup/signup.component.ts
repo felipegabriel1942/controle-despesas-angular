@@ -35,7 +35,9 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {}
 
   createUser(): void {
-    this.validateForm();
+    if (!this.validateForm()) {
+      return;
+    }
 
     const user = this.convertFormToObject();
 
@@ -56,12 +58,9 @@ export class SignupComponent implements OnInit {
     });
   }
 
-  validateForm(): void {
+  validateForm(): boolean {
     this.signupForm.markAllAsTouched();
-
-    if (this.signupForm.invalid) {
-      throw new Error('Invalid form');
-    }
+    return this.signupForm.valid;
   }
 
   navigateToSigninPage(): void {

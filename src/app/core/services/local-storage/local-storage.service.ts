@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import { StorageKey } from '../../enum/storage-key.enum';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LocalStorageService {
-
-  constructor() { }
+  constructor() {}
 
   set(key: string, value: string): void {
     localStorage.setItem(key, JSON.stringify(value));
@@ -23,12 +22,10 @@ export class LocalStorageService {
       return;
     }
 
-    values.forEach(value => this.remove(value));
+    values.forEach((value) => this.remove(value));
   }
 
   remove(key: string): any {
     return localStorage.removeItem(key);
   }
-
-
 }
