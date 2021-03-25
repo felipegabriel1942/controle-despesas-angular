@@ -73,4 +73,16 @@ export class HomeComponent implements OnInit {
   clearErrorMessage(): void {
     this.errorMessage = '';
   }
+
+  typeTransactionBadgeClass(transaction: Transaction): string {
+    if (transaction.type.description == 'Despesa') {
+      return 'badge-danger';
+    }
+
+    if (transaction.type.description === 'Receita') {
+      return 'badge-success';
+    }
+
+    return null;
+  }
 }
