@@ -1,0 +1,12 @@
+table {
+  margin-bottom: 0;
+}
+
+thead,
+tbody {
+  border: 1px solid #dee2e6;
+}
+
+::ng-deep .table td {
+  vertical-align: middle;
+}

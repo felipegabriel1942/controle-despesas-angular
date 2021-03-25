@@ -1,61 +1,63 @@
-<button
-  type="button"
-  class="btn btn-outline-primary"
-  (click)="openAddTransactionModal()"
->
-  Adicionar
-</button>
-
-<app-modal [modalId]="addTransactionModalId">
-  <div title>Adicione uma transação</div>
-  <div body>
-    <app-transaction-form [form]="transactionForm"></app-transaction-form>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <app-card-summary
+        [title]="'Receitas'"
+        [value]="'R$ 1500,00'"
+        [valueClass]="'text-success'"
+      ></app-card-summary>
+    </div>
+    <div class="col-md-4">
+      <app-card-summary
+        [title]="'Despesas'"
+        [value]="'R$ 1000,00'"
+        [valueClass]="'text-danger'"
+      ></app-card-summary>
+    </div>
+    <div class="col-md-4">
+      <app-card-summary
+        [title]="'Resultado'"
+        [value]="'R$ 500,00'"
+      ></app-card-summary>
+    </div>
   </div>
-  <div footer>
-    <button
-      class="btn btn-outline-danger mx-2"
-      (click)="closeAddTransactionModal()"
-    >
-      Fechar
-    </button>
-    <button class="btn btn-outline-success mx-2" (click)="addTransaction()">
-      Adicionar
-    </button>
-  </div>
-</app-modal>
 
-<app-table>
-  <ng-container headers>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Descrição</th>
-      <th scope="col">Valor</th>
-      <th scope="col">Data</th>
-      <th scope="col">Categoria</th>
-      <th scope="col">Tipo</th>
-      <th scope="col"></th>
-    </tr>
-  </ng-container>
-  <ng-container rows>
-    <tr *ngFor="let transaction of transactions; let i = index">
-      <th scope="row">{{ i + 1 }}</th>
-      <td>{{ transaction.description }}</td>
-      <td>{{ transaction.value | currency }}</td>
-      <td>{{ transaction.transactionDate | date: "dd/MM/yyyy" }}</td>
-      <td>{{ transaction.category.description }}</td>
-      <td>
-        <h5>
-          <span
-            class="badge"
-            [ngClass]="typeTransactionBadgeClass(transaction)"
-            >{{ transaction.type.description }}</span
-          >
-        </h5>
-      </td>
-      <td>
-        <button class="btn btn-sm btn-info mx-1">E</button>
-        <button class="btn btn-sm btn-danger mx-1">D</button>
-      </td>
-    </tr>
-  </ng-container>
-</app-table>
+  <app-modal [modalId]="addTransactionModalId">
+    <div title>Adicione uma transação</div>
+    <div body>
+      <app-transaction-form [form]="transactionForm"></app-transaction-form>
+    </div>
+    <div footer>
+      <button
+        class="btn btn-outline-danger mx-2"
+        (click)="closeAddTransactionModal()"
+      >
+        Fechar
+      </button>
+      <button class="btn btn-outline-success mx-2" (click)="addTransaction()">
+        Adicionar
+      </button>
+    </div>
+  </app-modal>
+
+  <div class="card shadow mt-4">
+    <div class="card-header" style="vertical-align: middle">
+      <span class="text-info card-title">Transações</span>
+      <button
+        type="button"
+        style="float: right"
+        class="btn btn-outline-primary"
+        (click)="openAddTransactionModal()"
+      >
+        +
+      </button>
+    </div>
+    <div class="card-body">
+      <app-transaction-table
+        [transactions]="transactions"
+        (onDeleteTransaction)="deleteTransaction($event)"
+        (onEditTransaction)="editTransaction($event)"
+      ></app-transaction-table>
+    </div>
+  </div>
+</div>

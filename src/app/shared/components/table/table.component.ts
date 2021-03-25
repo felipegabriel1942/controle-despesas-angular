@@ -7,11 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class TableComponent implements OnInit {
 
-  @Input() data: any[] = [];
-
   constructor() {}
 
   ngOnInit(): void {}
-
-  variavel = ['category', 'description'];
 }

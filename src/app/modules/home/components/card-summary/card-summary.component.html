@@ -1,1 +1,6 @@
-<p>card-summary works!</p>
+<div class="card shadow">
+  <div class="card-header card-title text-info">{{ title }}</div>
+  <div class="card-body">
+    <h3 [ngClass]="valueClass">{{ value }}</h3>
+  </div>
+</div>

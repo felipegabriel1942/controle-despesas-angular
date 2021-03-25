@@ -53,6 +53,7 @@ export class HomeComponent implements OnInit {
   getTransactions(): void {
     this.transactionService.getTransactions().subscribe((res) => {
       this.transactions = res.content;
+      console.log(res);
     });
   }
 
@@ -74,15 +75,11 @@ export class HomeComponent implements OnInit {
     this.errorMessage = '';
   }
 
-  typeTransactionBadgeClass(transaction: Transaction): string {
-    if (transaction.type.description == 'Despesa') {
-      return 'badge-danger';
-    }
+  deleteTransaction(transaction: Transaction): void {
+    console.log('delete: ', transaction);
+  }
 
-    if (transaction.type.description === 'Receita') {
-      return 'badge-success';
-    }
-
-    return null;
+  editTransaction(transaction: Transaction): void {
+    console.log('edit: ', transaction);
   }
 }
