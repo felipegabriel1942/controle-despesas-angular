@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { Transaction } from 'src/app/shared/models/transaction.model';
 
 @Component({
@@ -7,6 +8,9 @@ import { Transaction } from 'src/app/shared/models/transaction.model';
   styleUrls: ['./transaction-table.component.css'],
 })
 export class TransactionTableComponent implements OnInit {
+  editIcon = faPencilAlt;
+  deleteIcon = faTrash;
+
   @Input() transactions: Transaction[] = [];
   @Output() onDeleteTransaction = new EventEmitter<any>();
   @Output() onEditTransaction = new EventEmitter<any>();

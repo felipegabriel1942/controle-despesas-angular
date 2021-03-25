@@ -11,6 +11,7 @@ import { DateInputComponent } from './components/input/date-input/date-input.com
 import { MonetaryInputComponent } from './components/input/monetary-input/monetary-input.component';
 import { TextInputComponent } from './components/input/text-input/text-input.component';
 import { AlertComponent } from './components/alert/alert.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 @NgModule({
@@ -24,7 +25,12 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     TextInputComponent,
     AlertComponent,
   ],
-  imports: [CommonModule, ReactiveFormsModule, NgxMaskModule.forRoot()],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    NgxMaskModule.forRoot(),
+    FontAwesomeModule,
+  ],
   exports: [
     TextInputComponent,
     ModalComponent,
@@ -35,6 +41,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     DateInputComponent,
     MonetaryInputComponent,
     AlertComponent,
+    FontAwesomeModule
   ],
 })
 export class SharedModule {}
